@@ -50,7 +50,7 @@ const ShipmentsTable: React.FC<ShipmentsTableProps> = ({ shipments }) => {
                 return (
                   <React.Fragment key={shipment.minuta}>
                     <tr className="hover:bg-gray-50 block md:table-row">
-                      <td className="px-6 py-4 block md:table-cell:hidden">
+                      <td className="px-6 py-4 hidden md:table-cell">
                         <button
                           onClick={() => toggleRowExpansion(shipment.minuta)}
                           className="text-indigo-600 hover:text-indigo-900 focus:outline-none"
@@ -90,6 +90,15 @@ const ShipmentsTable: React.FC<ShipmentsTableProps> = ({ shipments }) => {
                       <td className="px-6 py-4 text-sm text-gray-900 font-bold md:font-normal block md:table-cell">
                         <span className="md:hidden font-medium text-gray-500 mr-2">Peso:</span>
                         {shipment.peso}
+                      </td>
+                      <td className="px-6 py-4 block md:hidden">
+                        <button
+                          onClick={() => toggleRowExpansion(shipment.minuta)}
+                          className="text-indigo-600 hover:text-indigo-900 focus:outline-none"
+                        >
+                          { !isExpanded && <PanelTopOpenIcon className="h-5 w-5" /> }
+                          { isExpanded && <PanelBottomOpenIcon className="h-5 w-5" /> }
+                        </button>
                       </td>
                     </tr>
                     {isExpanded && (
