@@ -35,31 +35,32 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
     <div className="bg-white p-6 rounded-lg shadow-md mb-6">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Localize sua Remessa</h2>
       
+      <div className="border-b border-gray-200 mb-4">
+        <nav className="flex space-x-8">
+          <button
+            onClick={() => handleSearchTypeChange('minuta')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              searchType === 'minuta'
+                ? 'border-indigo-500 text-indigo-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            Minuta
+          </button>
+          <button
+            onClick={() => handleSearchTypeChange('cnpjNfe')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              searchType === 'cnpjNfe'
+                ? 'border-indigo-500 text-indigo-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            CNPJ e NFE
+          </button>
+        </nav>
+      </div>
+
       <form onSubmit={handleSubmit}>
-        <div className="flex items-center space-x-6 mb-4">
-          <label className="inline-flex items-center">
-            <input 
-              type="radio" 
-              name="searchType" 
-              className="form-radio h-4 w-4 text-indigo-600"
-              checked={searchType === 'cnpjNfe'}
-              onChange={() => handleSearchTypeChange('cnpjNfe')}
-            />
-            <span className="ml-2 text-gray-700">CNPJ e NFE</span>
-          </label>
-          
-          <label className="inline-flex items-center">
-            <input 
-              type="radio" 
-              name="searchType" 
-              className="form-radio h-4 w-4 text-indigo-600"
-              checked={searchType === 'minuta'}
-              onChange={() => handleSearchTypeChange('minuta')}
-            />
-            <span className="ml-2 text-gray-700">Minuta</span>
-          </label>
-        </div>
-        
         {searchType === 'minuta' ? (
           <div className="mb-4">
             <input
@@ -71,7 +72,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             />
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-4">
             <input
               type="number"
               placeholder="CNPJ"
