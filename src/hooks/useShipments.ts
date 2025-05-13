@@ -56,7 +56,6 @@ export const useShipments = (): UseShipmentsReturn => {
   };
 
   const clearResults = () => {
-    setSearchResults([]);
     setError(null);
   };
 

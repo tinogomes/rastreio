@@ -30,7 +30,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
 
   const handleSearchTypeChange = (type: 'minuta' | 'cnpjNfe') => {
     setSearchType(type);
-    handleClear();
+    // Limpa apenas os campos de busca, mantendo os resultados
+    setMinuta('');
+    setCnpj('');
+    setNfe('');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
