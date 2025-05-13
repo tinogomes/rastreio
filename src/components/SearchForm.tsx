@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FileBadge, FilePen, Search, X } from 'lucide-react';
 
 interface SearchFormProps {
@@ -11,6 +11,21 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
   const [minuta, setMinuta] = useState<string>('');
   const [cnpj, setCnpj] = useState<string>('');
   const [nfe, setNfe] = useState<string>('');
+  const minutaSearchField = useRef<HTMLInputElement>(null);
+  const cnpjSearchField = useRef<HTMLInputElement>(null);
+  const searchButton = useRef<HTMLButtonElement>(null);
+
+  const setFocusBySearchType = (type: string | undefined) => {
+    if (type == 'minuta') {
+      minutaSearchField.current?.focus();
+    } else {
+      cnpjSearchField.current?.focus();
+    }
+  }
+
+  useEffect(() => {
+    setFocusBySearchType(searchType);
+  }, [searchType]);
 
   const handleSearchTypeChange = (type: 'minuta' | 'cnpjNfe') => {
     setSearchType(type);
@@ -21,12 +36,15 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
     e.preventDefault();
     if (searchType === 'minuta' && minuta) {
       onSearch({ type: 'minuta', minuta });
+      searchButton.current?.focus();
     } else if (searchType === 'cnpjNfe' && cnpj && nfe) {
       onSearch({ type: 'cnpjNfe', cnpj, nfe });
+      searchButton.current?.focus();
     }
   };
 
   const handleClear = () => {
+    setFocusBySearchType(searchType);
     setMinuta('');
     setCnpj('');
     setNfe('');
@@ -67,6 +85,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
         {searchType === 'minuta' ? (
           <div className="mb-4">
             <input
+              ref={minutaSearchField}
               type="number"
               placeholder="Número da Minuta"
               className="searchNumber w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -77,6 +96,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
         ) : (
           <div className="grid grid-cols-2 gap-4">
             <input
+              ref={cnpjSearchField}
               type="number"
               placeholder="CNPJ"
               className="searchNumber w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -95,6 +115,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
         
         <div className="flex space-x-3 mt-4">
           <button
+            ref={searchButton}
             type="submit"
             className="flex items-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors"
           >
