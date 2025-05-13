@@ -9,7 +9,11 @@ function App() {
   return (
     <Layout>
       <div className="space-y-6">
-        <SearchForm onSearch={searchShipments} onClear={clearResults} />
+        <SearchForm 
+          onSearch={searchShipments} 
+          onClear={clearResults} 
+          isLoading={isLoading}
+        />
         <SearchResult
           isLoading={isLoading}
           error={error}

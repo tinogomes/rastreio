@@ -5,9 +5,10 @@ import SearchField from './SearchField';
 interface SearchFormProps {
   onSearch: (params: { type: 'minuta' | 'cnpjNfe', minuta?: string, cnpj?: string, nfe?: string }) => void,
   onClear: () => void;
+  isLoading: boolean;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear, isLoading }) => {
   const [searchType, setSearchType] = useState<'minuta' | 'cnpjNfe'>('minuta');
   const [minuta, setMinuta] = useState<string>('');
   const [cnpj, setCnpj] = useState<string>('');
@@ -95,6 +96,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
               type="number"
               value={minuta}
               onChange={(e) => setMinuta(e.target.value)}
+              disabled={isLoading}
             />
           </div>
         ) : (
@@ -106,6 +108,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
               type="number"
               value={cnpj}
               onChange={(e) => setCnpj(e.target.value)}
+              disabled={isLoading}
             />
             <SearchField
               id="nfe"
@@ -113,6 +116,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
               type="number"
               value={nfe}
               onChange={(e) => setNfe(e.target.value)}
+              disabled={isLoading}
             />
           </div>
         )}
@@ -121,7 +125,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
           <button
             ref={searchButton}
             type="submit"
-            className="flex items-center bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors"
+            disabled={isLoading}
+            className={`flex items-center px-4 py-2 rounded transition-colors ${
+              isLoading
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700'
+            } text-white`}
           >
             <Search className="h-4 w-4 mr-2" />
             Buscar
@@ -130,7 +139,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
           <button
             type="button"
             onClick={handleClear}
-            className="flex items-center bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition-colors"
+            disabled={isLoading}
+            className={`flex items-center px-4 py-2 rounded transition-colors ${
+              isLoading
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-gray-200 hover:bg-gray-300'
+            } text-gray-700`}
           >
             <X className="h-4 w-4 mr-2" />
             Limpar
