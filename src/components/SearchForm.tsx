@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FileBadge, FilePen, Search, X } from 'lucide-react';
+import SearchField from './SearchField';
 
 interface SearchFormProps {
   onSearch: (params: { type: 'minuta' | 'cnpjNfe', minuta?: string, cnpj?: string, nfe?: string }) => void,
@@ -84,29 +85,29 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
       <form onSubmit={handleSubmit}>
         {searchType === 'minuta' ? (
           <div className="mb-4">
-            <input
+            <SearchField
               ref={minutaSearchField}
+              id="minuta"
+              label="Número da Minuta"
               type="number"
-              placeholder="Número da Minuta"
-              className="searchNumber w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={minuta}
               onChange={(e) => setMinuta(e.target.value)}
             />
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4">
-            <input
+            <SearchField
               ref={cnpjSearchField}
+              id="cnpj"
+              label="CNPJ"
               type="number"
-              placeholder="CNPJ"
-              className="searchNumber w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={cnpj}
               onChange={(e) => setCnpj(e.target.value)}
             />
-            <input
+            <SearchField
+              id="nfe"
+              label="NFE"
               type="number"
-              placeholder="NFE"
-              className="searchNumber w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
               value={nfe}
               onChange={(e) => setNfe(e.target.value)}
             />
