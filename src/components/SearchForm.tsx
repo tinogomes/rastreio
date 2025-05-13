@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Search, X } from 'lucide-react';
+import { FileBadge, FilePen, Search, X } from 'lucide-react';
 
 interface SearchFormProps {
-  onSearch: (params: { type: 'minuta' | 'cnpjNfe', minuta?: string, cnpj?: string, nfe?: string }) => void;
+  onSearch: (params: { type: 'minuta' | 'cnpjNfe', minuta?: string, cnpj?: string, nfe?: string }) => void,
+  onClear: () => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ onSearch, onClear }) => {
   const [searchType, setSearchType] = useState<'minuta' | 'cnpjNfe'>('minuta');
   const [minuta, setMinuta] = useState<string>('');
   const [cnpj, setCnpj] = useState<string>('');
@@ -29,6 +30,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
     setMinuta('');
     setCnpj('');
     setNfe('');
+    onClear();
   };
 
   return (
@@ -45,7 +47,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            Minuta
+            <FilePen className="h-4 w-4 mr-2" /> Minuta
           </button>
           <button
             onClick={() => handleSearchTypeChange('cnpjNfe')}
@@ -55,6 +57,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
+            <FileBadge className="h-4 w-4 mr-2" />
             CNPJ e NFE
           </button>
         </nav>

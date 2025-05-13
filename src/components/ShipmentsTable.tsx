@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { PanelBottomOpenIcon, PanelTopOpenIcon } from 'lucide-react';
 import { ShipmentWithDetails } from '../types';
 import ShipmentDetailsTable from './ShipmentDetailsTable';
 
@@ -54,7 +54,8 @@ const ShipmentsTable: React.FC<ShipmentsTableProps> = ({ shipments }) => {
                         onClick={() => toggleRowExpansion(shipment.minuta)}
                         className="text-indigo-600 hover:text-indigo-900 focus:outline-none"
                       >
-                        <Search className="h-5 w-5" />
+                        { !isExpanded && <PanelTopOpenIcon className="h-5 w-5" /> }
+                        { isExpanded && <PanelBottomOpenIcon className="h-5 w-5" /> }
                       </button>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{shipment.cnpj}</td>

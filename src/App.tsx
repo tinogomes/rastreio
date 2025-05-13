@@ -30,7 +30,7 @@ function App() {
   return (
     <Layout>
       <div className="space-y-6">
-        <SearchForm onSearch={handleSearch} />
+        <SearchForm onSearch={handleSearch} onClear={() => setHasSearched(false)} />
         
         {hasSearched && (
           <ShipmentsTable shipments={searchResults} />
